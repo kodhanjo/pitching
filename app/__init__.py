@@ -9,15 +9,15 @@ from flask_simplemde import SimpleMDE
 import os
 
 login_manager = LoginManager()
-login_manager.session_protection = 'strong'
-login_manager.login_view = 'auth.login'
+login_manager.session_protection = "strong"
+login_manager.login_view = "auth.login"
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 simple = SimpleMDE()
 mail = Mail()
 
-photos = UploadSet('photos', IMAGES)
+photos = UploadSet("photos", IMAGES)
 
 
 def create_app(config_name):
@@ -27,6 +27,7 @@ def create_app(config_name):
     # Creating the app configurations
     app.config.from_object(config_options[config_name])
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+
     # Initializing flask extensions
     bootstrap.init_app(app)
     db.init_app(app)
@@ -36,9 +37,11 @@ def create_app(config_name):
 
     # Registering the blueprint
     from .main import main as main_blueprint
+
     app.register_blueprint(main_blueprint)
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
+
+    app.register_blueprint(auth_blueprint, url_prefix="/authenticate")
 
     # Will add the views and forms
 

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wft%}
+
 {% block content %}
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
+                <legend class="border-bottom mb-4">Join Now</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
