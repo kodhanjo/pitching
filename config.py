@@ -8,7 +8,7 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = "app/static/photos"
-    SECRET_KEY = "312312"
+    SECRET_KEY= os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI ="postgresql+psycopg2://moringa:kodhanjo@localhost:pitching"
 
     # email configurations
@@ -37,12 +37,9 @@ class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
-pass
-
-
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI ="postgresql+psycopg2://moringa:kodhanjo@localhost/pitching_test"
-
+    # SQLALCHEMY_DATABASE_URI ="postgresql+psycopg2://moringa:kodhanjo@localhost/pitching_test"
+    pass
 
 class DevConfig(Config):
     """
@@ -60,5 +57,5 @@ class DevConfig(Config):
 config_options = {
     "development": DevConfig,
     "production": ProdConfig,
-    "test": TestConfig,
+    # "test": TestConfig,
 }

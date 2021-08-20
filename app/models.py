@@ -20,7 +20,6 @@ class Pitch(db.Model):
     posted = db.Column(db.DateTime, default=datetime.utcnow)
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
 class User(UserMixin, db.Model):
@@ -31,10 +30,6 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    comment = db.relationship("Comment", backref="user", lazy="dynamic")
-    pitch = db.relationship("Pitch", backref="user", lazy="dynamic")
-    password_secure = db.Column(db.String(255))
-    pass_secure = db.Column(db.String(255))
 
 
 @property
@@ -60,8 +55,6 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String)
     posted = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
 
     def __repr__(self):
         return f"Comment ('{self.comment}','{self.user}')"
@@ -81,8 +74,6 @@ class Votes(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     vote = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
 
     def save_vote(self):
         db.session.add(self)
