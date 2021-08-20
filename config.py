@@ -6,12 +6,11 @@ class Config:
     General configuration parent class
     """
 
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = "app/static/photos"
-    # SECRET_KEY='Flask WTF Secret Key'
-    SQLALCHEMY_DATABASE_URI = (
-        "postgresql+psycopg2://moringa:kodhanjo@localhost:5432/pitching"
-    )
+    SECRET_KEY = "312312"
+    SQLALCHEMY_DATABASE_URI ="postgresql+psycopg2://moringa:kodhanjo@localhost:pitching"
+
     # email configurations
     MAIL_SERVER = "smtp.googlemail.com"
     MAIL_PORT = 587
@@ -35,13 +34,14 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     """
 
-    # SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
 pass
 
-# class TestConfig(Config):
-#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:kodhanjo@localhost/pitching'
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI ="postgresql+psycopg2://moringa:kodhanjo@localhost/pitching_test"
 
 
 class DevConfig(Config):
@@ -51,12 +51,14 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     """
 
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:kodhanjo@localhost/pitch'
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://moringa:kodhanjo@localhost/pitching"
+
+
+# DEBUG = True
 
 
 config_options = {
     "development": DevConfig,
     "production": ProdConfig,
-    # 'test': TestConfig
+    "test": TestConfig,
 }

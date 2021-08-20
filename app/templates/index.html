@@ -12,11 +12,11 @@
         <div class="col-md-8 col-lg-8 col-xs-10 ">
             <ul class="list-index ">
                 {% for pitch in pitches.items%}
-                <li class="jumbotron " style="padding-left:40px ; list-style-type: none; background-color: rgb(176, 180, 216);">                 
+                <li class="jumbotron " style="padding-left:40px ; list-style-type: none; background-color: rgb(75, 146, 81);">                 
                     <div class="card mb-6 bg-dark text-white">
                         <div class="card-body">
                             <img src="https://media.giphy.com/media/NFA61GS9qKZ68/giphy.gif" alt="" style="width:32%; float: left;">
-                            <h2 class="card-title" style="color:rgba(240, 48, 0, 0.911)"> {{pitch.pitch_category}}</h2>
+                            <h2 class="card-title" style="color:rgba(255, 255, 255, 0.911)"> {{pitch.pitch_category}}</h2>
                             <h4><span></span><a href="{{url_for('main.posted',username=pitch.user.username)}}">By: {{pitch.user.username}}</a></h4>
                             <p class="card-text" style="color:rgba(240, 48, 0, 0.911)">{{pitch.pitch}}</p>
                             <p class="card-text" style="color:rgb(10, 2, 122)">Posted On: {{pitch.posted.strftime('%Y-%m-%d')}}<span></span></p>
@@ -38,8 +38,8 @@
 
 <style>
     .jumbotron{
-        background-color: blueviolet;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color:greenyellow;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     }
     
 </style>         
