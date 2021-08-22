@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required
 from ..models import User
 from .forms import LoginForm, RegistrationForm
 from .. import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from ..email import mail_message
 
@@ -13,7 +14,7 @@ def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user = User.query.filter_by(email=login_form.email.data).first()
-        if user is not None and user.verify_password(login_form.password.data):
+        if user and user.verify_password(login_form.password.data):
             login_user(user, login_form.remember.data)
             return redirect(request.args.get("next") or url_for("main.index"))
 
@@ -35,10 +36,12 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        password_hash = generate_password_hash(form.password.data)
+
         user = User(
             email=form.email.data,
             username=form.username.data,
-            password=form.password.data,
+            password_hash=password_hash,
         )
         db.session.add(user)
         db.session.commit()

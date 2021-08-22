@@ -16,7 +16,7 @@ class UploadPitch(FlaskForm):
         choices=[
             ("General", "General"),
             ("Movie", "Movie"),
-            ("Political", "political"),
+            ("Political", "Political"),
             ("Religious", "Religious"),
             ("Meme", "Meme"),
         ],

@@ -16,9 +16,7 @@ def index():
 
     title = "Drop Some Pitch"
     page = request.args.get("page", 1, type=int)
-    all_pitch = Pitch.query.order_by(Pitch.posted.desc()).paginate(
-        page=page, per_page=10
-    )
+    all_pitch = Pitch.query.order_by(Pitch.posted.desc()).paginate(page=page, per_page=10)
 
     return render_template("index.html", pitches=all_pitch, title=title)
 
@@ -73,28 +71,22 @@ def upload_pitch():
     if current_user is None:
         abort(404)
     if pitch.validate_on_submit():
-        pitch = Pitch(
-            pitch_category=pitch.category.data,
-            pitch=pitch.pitch.data,
-            user=current_user,
-        )
+        pitch = Pitch (pitch_category=pitch.category.data,pitch=pitch.pitch.data,user_id=current_user.id)
         db.session.add(pitch)
-        db.session.commit()
+        db.session.commit() #this saves data
         flash("Pitch Uploaded")
         return redirect(url_for("main.index"))
-    return render_template(
-        "profile/update_pitch.html",
-        pitch=pitch,
-        title="Create Pitch",
-        legend="Create Pitch",
-    )
+    return render_template("profile/update_pitch.html",pitch=pitch,title="Create Pitch",legend="Create Pitch",)
 
 
 @main.route("/<int:pname>/comment", methods=["GET", "POST"])
 @login_required
 def comment(pname):
     comment = CommentsForm()
-    image = url_for("static", filename="profile/" + current_user.profile_pic_path)
+    profile_pic=""
+    if current_user and current_user.profile_pic_path:
+        profile_pic= current_user.profile_pic_path
+    image = url_for("static", filename="profile/" + profile_pic )
     pitch = Pitch.query.filter_by(id=pname).first()
     comment_query = Comment.query.filter_by(pitch_id=pitch.id).all()
 

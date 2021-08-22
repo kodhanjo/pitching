@@ -23,7 +23,7 @@ def tearDown(self):
 def test_check_instance_variables(self):
     self.assertEquals(self.new_review.pitch_id, 12345)
     self.assertEquals(
-        self.new_review.pitch_review, "This pitch is the best thing since sliced bread"
+    self.new_review.pitch_review, "This pitch is the best thing since sliced bread"
     )
     self.assertEquals(self.new_review.user, self.user_felix)
 

@@ -20,6 +20,7 @@ class Pitch(db.Model):
     posted = db.Column(db.DateTime, default=datetime.utcnow)
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
 
 
 class User(UserMixin, db.Model):
@@ -30,24 +31,27 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    # comment=db.relationship('Comment',backref='user', lazy='dynamic')
+    # pitch=db.relationship('Pitch',backref='user', lazy='dynamic')
 
 
-@property
-def password(self):
-    raise AttributeError("You cannot access the password")
+
+    @property
+    def password(self):
+        raise AttributeError("You cannot access the password")
 
 
-@password.setter
-def password(self, password):
-    self.password_hash = generate_password_hash(password)
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
 
 
-def verify_password(self, password):
-    return check_password_hash(self.password_hash, password)
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
-def __repr__(self):
-    return f"User('{self.username}','{self.email}','{self.pitch}')"
+    def __repr__(self):
+        return f"User('{self.username}','{self.email}','{self.pitch}')"
 
 
 class Comment(db.Model):
@@ -55,6 +59,9 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String)
     posted = db.Column(db.DateTime, default=datetime.utcnow)
+    # user_id=db.column(db.Integer,db.ForeignKey("user.id"))
+    # pitch_id=db.column(db.Integer,db.ForeignKey("pitch.id"))
+    
 
     def __repr__(self):
         return f"Comment ('{self.comment}','{self.user}')"
@@ -74,6 +81,8 @@ class Votes(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     vote = db.Column(db.Integer)
+    # user_id=db.column(db.Integer, db.ForeignKey("user.id"))
+    # pitch_id=db.column(db.Integer, db.ForeignKey("pitch.id"))
 
     def save_vote(self):
         db.session.add(self)

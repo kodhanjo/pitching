@@ -14,14 +14,14 @@
         <ul class="list-index ">
             {% for pitch in pitches.items%}
             <li class="jumbotron "
-                style="padding-left:40px ; list-style-type: none; background-color: rgb(75, 146, 81);">
+                style="padding-left:40px ; list-style-type: none; background-color: rgb(131, 182, 135);">
                 <div class="card mb-6 bg-dark text-white">
                     <div class="card-body">
                         <img src="https://media.giphy.com/media/NFA61GS9qKZ68/giphy.gif" alt=""
                             style="width:32%; float: left;">
                         <h2 class="card-title" style="color:rgba(255, 255, 255, 0.911)"> {{pitch.pitch_category}}</h2>
-                        <h4><span></span><a href="{{url_for('main.posted',username=pitch.user.username)}}">By:
-                                {{pitch.user.username}}</a></h4>
+                        <h4><span></span><a href="{{url_for('main.posted',username=pitch.user_id.username)}}">By:
+                                {{pitch.user_id.username}}</a></h4>
                         <p class="card-text" style="color:rgba(240, 48, 0, 0.911)">{{pitch.pitch}}</p>
                         <p class="card-text" style="color:rgb(10, 2, 122)">Posted On:
                             {{pitch.posted.strftime('%Y-%m-%d')}}<span></span></p>
